@@ -2,12 +2,12 @@ module.exports = function(api) {
   api.cache(true);
   return {
     presets: ['babel-preset-expo'],
-    /*
+    
       "plugins": [
         [
           "module-resolver",
           {
-            "cwd": "babelrc",
+            "cwd": "babel.config",
             "root": ["./src"],
             "extensions": [".js", ".ios.js", ".android.js"],
             "alias": {
@@ -25,6 +25,6 @@ module.exports = function(api) {
           }
         ]
       ]
-      */
+      
   }
 };
