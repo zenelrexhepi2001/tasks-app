@@ -5,7 +5,7 @@ import { TouchableOpacity } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import HomeScreen from "../screens/home/HomeScreen";
 import Menu from "../assets/svg/menu.svg";
-import { Colors } from "../styles";
+import { Colors,Typography } from "../styles";
 import {
   createMaterialBottomTabNavigator,
   MaterialBottomTabNavigationEventMap,
@@ -36,9 +36,7 @@ const TabNavigationScreen = () => {
         borderTopColor: '#fff',
 
       },
-      
     }}
-    
     >
       <Tab.Screen
         name="Home"
@@ -124,6 +122,7 @@ const TasksNavigationScreens = () => {
           },
           headerTitleStyle: {
             fontSize: 26,
+            fontFamily: Typography.FONT_FAMILY_POPPIS,
             color: Colors.PRIMARY,
             fontWeight: "700",
           },
