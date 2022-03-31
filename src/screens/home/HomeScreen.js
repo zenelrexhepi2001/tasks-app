@@ -13,7 +13,7 @@ const HomeScreen = props => {
 
     useEffect(() => {
         dispatch(TasksActions.fetchList());
-    },[dispatch,displayList]);
+    },[dispatch]);
 
     return (
         <SafeAreaView style={styles.hero}>

@@ -1,27 +1,37 @@
-import {View} from 'react-native';
+import {Text} from 'react-native';
+import { TouchableOpacity } from "react-native";
+//rn navigation 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { TouchableOpacity } from "react-native";
-import Svg, { Path } from "react-native-svg";
-import HomeScreen from "../screens/home/HomeScreen";
-import Menu from "../assets/svg/menu.svg";
-import { Colors,Typography } from "../styles";
 import {
   createMaterialBottomTabNavigator,
   MaterialBottomTabNavigationEventMap,
 } from "@react-navigation/material-bottom-tabs";
+
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+//Colors typography
+import { Colors,Typography } from "../styles";
+
+
+//Logo
 import HomeLogo from "../assets/svg/home.svg";
 import Calendar from "../assets/svg/calendar.svg";
 import Habits from "../assets/svg/habits.svg";
 import Settings from "../assets/svg/settings.svg";
-import Add from '../assets/svg/add.svg';
-import CreateListScreen from '../screens/create-list/CreateListScreen';
+import Menu from "../assets/svg/menu.svg";
 
+//Components and screens
+import HomeScreen from "../screens/home/HomeScreen";
+import CreateListScreen from '../screens/create-list/CreateListScreen';
+import CreateTaskScreen from '../screens/create-task/CreateTaskScreen';
+import { AddCircle } from '../components/atoms';
+
+//Creating Stacks and tabs navigation
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const TabNavigationScreen = () => {
+const TabNavigationScreen = (props) => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -74,7 +84,7 @@ const TabNavigationScreen = () => {
       />
         <Tab.Screen
         name="Settins"
-        component={''}
+        component={CreateTaskScreen}
         options={{
             tabBarLabel: '',
             headerShown: false,
@@ -84,23 +94,12 @@ const TabNavigationScreen = () => {
         }}
       />
       <Tab.Screen
-         name='cirlce'
-         component={''}
+         name='create-task'
+         component={CreateTaskScreen}
          options={{
              tabBarLabel: '',
              tabBarIcon: () => (
-                 <TouchableOpacity style={{
-                     backgroundColor: Colors.SUCCESS,
-                     width: 60,
-                     height: 60,
-                     borderRadius: 100,
-                     alignItems: 'center',
-                     justifyContent: 'center',
-                     position: 'absolute',
-                     bottom: 16,
-                 }}>
-                     <Add width={25} height={25}/>
-                 </TouchableOpacity>
+               <AddCircle/>
              )
          }}
       />
@@ -142,6 +141,10 @@ const TasksNavigationScreens = () => {
       <Stack.Screen
         name='create'
         component={CreateListScreen}
+      />
+      <Stack.Screen
+        name='create-task'
+        component={CreateTaskScreen}
       />
     </Stack.Navigator>
   );
