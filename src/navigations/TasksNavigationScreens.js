@@ -16,6 +16,7 @@ import Calendar from "../assets/svg/calendar.svg";
 import Habits from "../assets/svg/habits.svg";
 import Settings from "../assets/svg/settings.svg";
 import Add from '../assets/svg/add.svg';
+import CreateListScreen from '../screens/create-list/CreateListScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -137,6 +138,10 @@ const TasksNavigationScreens = () => {
             </TouchableOpacity>
           ),
         }}
+      />
+      <Stack.Screen
+        name='create'
+        component={CreateListScreen}
       />
     </Stack.Navigator>
   );

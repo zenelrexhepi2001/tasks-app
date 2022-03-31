@@ -10,5 +10,5 @@ const rootReducer = combineReducers({
 
 export const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(ReduxThunk, logger))
+  composeWithDevTools(applyMiddleware(ReduxThunk,logger))
 );

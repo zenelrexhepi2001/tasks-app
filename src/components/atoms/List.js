@@ -7,7 +7,7 @@ const List = props => {
     return (
         <View style={styles.list}>
             <View style={styles.listContent}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={props.onSelect}>
                     <Text style={styles.title}>{props.title}</Text>
                 </TouchableOpacity>
             </View>
