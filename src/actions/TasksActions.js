@@ -1,7 +1,5 @@
 import Category from "../models/category";
-
-export const GET_CREATE_NEW_LIST_SUCCESS = "GET_CREATE_NEW_LIST_SUCCESS";
-export const GET_FETCH_LIST_FROM_SERVER_SUCCESS = 'GET_FETCH_LIST_FROM_SERVER_SUCCESS';
+import { GET_CREATE_NEW_LIST_SUCCESS,GET_FETCH_LIST_FROM_SERVER_SUCCESS } from "./type";
 
 export const newList = (title) => {
   return async dispatch => {

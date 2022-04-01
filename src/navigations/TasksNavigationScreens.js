@@ -83,7 +83,7 @@ const TabNavigationScreen = (props) => {
         }}
       />
         <Tab.Screen
-        name="Settins"
+        name="Settings"
         component={CreateTaskScreen}
         options={{
             tabBarLabel: '',
@@ -145,6 +145,9 @@ const TasksNavigationScreens = () => {
       <Stack.Screen
         name='create-task'
         component={CreateTaskScreen}
+        options={{
+          headerShown: true,
+        }}
       />
     </Stack.Navigator>
   );

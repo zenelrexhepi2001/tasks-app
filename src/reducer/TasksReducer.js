@@ -1,5 +1,5 @@
 import Category from '../models/category';
-import { GET_CREATE_NEW_LIST_SUCCESS, GET_FETCH_LIST_FROM_SERVER_SUCCESS, GET_FETCH_LIST_SUCCESS } from '../actions/TasksActions';
+import { GET_CREATE_NEW_LIST_SUCCESS, GET_FETCH_LIST_FROM_SERVER_SUCCESS} from '../actions/type';
 import GET_DATA from '../data/data';
 
 const INITIAL_STATE = {
