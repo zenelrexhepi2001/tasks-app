@@ -5,19 +5,24 @@ import MenuTask from '../../assets/svg/menu-task.svg';
 import Clock  from '../../assets/svg/clock.svg';
 
 import { Colors,Typography } from '../../styles';
+import { useDispatch } from 'react-redux';
+import * as DeleteActions from '../../actions/TasksAddActions';
 
 
 const TaskList = props => {
     const [isChecked,setIsChecked] = useState(false);
+
     return (
           <View style={styles.listContainer}>
               <View style={styles.flex}>
+                  <TouchableOpacity onPress={props.onRemove}>
                   <Checkbox
                     value={isChecked}
-                    onValueChange={setIsChecked}
+                    onValueChange={props.onRemove}
                     color={isChecked ? '#536DFE' : '#E8E8E8'}
                     style={styles.checkbox}
                   />
+                  </TouchableOpacity>
                   <Text style={styles.title}>{props.title}</Text>
                </View>
                <View style={styles.listContent}>

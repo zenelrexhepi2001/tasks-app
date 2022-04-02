@@ -94,29 +94,7 @@ const HomeScreen = (props) => {
     );
   }
 
-  if (!loading && displayTasks.length === 0) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: Colors.LIGHT,
-        }}
-      >
-        <Text
-          style={{
-            fontFamily: Typography.FONT_FAMILY_POPPIS,
-            color: Colors.GRAY,
-            fontSize: 17,
-          }}
-        >
-          No Tasks Found!
-        </Text>
-      </View>
-    );
-  }
-
+ 
   return (
     <SafeAreaView style={styles.hero}>
       <View style={styles.listContainer}>
@@ -153,6 +131,7 @@ const HomeScreen = (props) => {
                 title={itemData.item.title}
                 time={itemData.item.time}
                 onClick={() => props.navigation.navigate("create-task")}
+                onRemove={() => dispatch(TodoActions.deleteTask(itemData.item.id))}
               />
             )}
           />

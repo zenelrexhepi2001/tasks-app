@@ -1,4 +1,4 @@
-import { GET_ADD_TODO_SUCCESS, GET_FETCH_TODO_FROM_SERVER_SUCCESS } from "./type";
+import { GET_ADD_TODO_SUCCESS, GET_DELETE_TODO_SUCCESS, GET_FETCH_TODO_FROM_SERVER_SUCCESS } from "./type";
 import TasksCategory from '../models/TasksCategory';
 
 export const addTodo = (title,time) => {
@@ -68,4 +68,14 @@ export const fetchTodo = () => {
             alert(err);
         }
      }
+}
+
+export const deleteTask = (todo) => {
+    return async (dispatch) => {
+        const response = await fetch('https://tasks-app-103b0-default-rtdb.firebaseio.com/todo.json',{
+            method: 'DELETE',
+        });
+        console.log(response);
+        dispatch({type: GET_DELETE_TODO_SUCCESS,taskId: todo})
+    }
 }
