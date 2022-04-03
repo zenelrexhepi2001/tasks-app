@@ -4,7 +4,7 @@ import GET_DATA from '../data/data';
 
 const INITIAL_STATE = {
     data: GET_DATA,
-    dataFilter: GET_DATA.filter((post) => post.id === '1'),
+    dataFilter: GET_DATA.filter((post) => post.id === 1),
 }
 
 export default (state = INITIAL_STATE, action) => {

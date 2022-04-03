@@ -17,14 +17,18 @@ import { useDispatch } from "react-redux";
 import * as TasksActions from "../../actions/TasksActions";
 import { TaskList } from "../../components/organisms";
 import * as TodoActions from "../../actions/TasksAddActions";
+import DownIcon from "../../assets/svg/down.svg";
+import { DoneTasks } from "../../components/organisms";
 
 const HomeScreen = (props) => {
 
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
+  const [toggle, setToggle] = useState(false);
   const [error, setError] = useState();
 
   const displayList = useSelector((state) => state.TaskData.data);
+  //For display tasks reducer
   const displayTasks = useSelector((state) => state.AddTasks.dataTasks);
 
   const dispatch = useDispatch();
@@ -33,7 +37,9 @@ const HomeScreen = (props) => {
     setRefresh(true);
     setError(null);
     try {
+      // for fetch -> List
       await dispatch(TasksActions.fetchList());
+      //for fetch todo 
       await dispatch(TodoActions.fetchTodo());
     } catch (err) {
       alert(err);
@@ -43,13 +49,13 @@ const HomeScreen = (props) => {
     setTimeout(() => {
       setRefresh(false);
     }, 200);
-
   }, [dispatch, setLoading]);
 
   useEffect(() => {
     setTimeout(() => {
       setLoading(true);
-    }, 200);
+      //setTimeout value = 0
+    }, 0);
 
     loadTasks().then(() => {
       setLoading(false);
@@ -94,7 +100,6 @@ const HomeScreen = (props) => {
     );
   }
 
- 
   return (
     <SafeAreaView style={styles.hero}>
       <View style={styles.listContainer}>
@@ -131,12 +136,22 @@ const HomeScreen = (props) => {
                 title={itemData.item.title}
                 time={itemData.item.time}
                 onClick={() => props.navigation.navigate("create-task")}
-                onRemove={() => dispatch(TodoActions.deleteTask(itemData.item.id))}
+                onRemove={() =>
+                  dispatch(TodoActions.deleteTask(itemData.item.id))
+                }
               />
             )}
           />
         </View>
       </View>
+      <TouchableOpacity
+        style={styles.btnLight}
+        onPress={() => setToggle(!toggle)}
+      >
+        <Text style={styles.btnLightText}>Done</Text>
+        <DownIcon width={13} height={13} />
+      </TouchableOpacity>
+      {toggle && <DoneTasks />}
     </SafeAreaView>
   );
 };
@@ -154,6 +169,19 @@ const styles = StyleSheet.create({
 
   bottom: {
     paddingTop: 70,
+  },
+
+  btnLight: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingLeft: 30,
+  },
+
+  btnLightText: {
+    fontSize: 20,
+    fontFamily: Typography.FONT_FAMILY_POPPIS,
+    color: Colors.PRIMARY,
+    marginRight: 8.5,
   },
 });
 

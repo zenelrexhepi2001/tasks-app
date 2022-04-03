@@ -27,6 +27,8 @@ import CreateListScreen from '../screens/create-list/CreateListScreen';
 import CreateTaskScreen from '../screens/create-task/CreateTaskScreen';
 import { AddCircle } from '../components/atoms';
 
+import CalendarScreen from '../screens/calendar/CalendarScreen';
+
 //Creating Stacks and tabs navigation
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -62,13 +64,46 @@ const TabNavigationScreen = (props) => {
       />
       <Tab.Screen
         name="Calendar"
-        component={''}
+        component={CalendarScreen}
+        /*
+        this is old code!
         options={{
             tabBarLabel: '',
-            headerShown: false,
+            headerShown: true,
             tabBarIcon: () => (
                 <Calendar  width={25} height={25}/>
+            ),
+            headerRight: () => (
+              <Text>hello</Text>
             )
+        }}
+        */
+        options={{
+          tabBarLabel: '',
+          headerShown: true,
+          headerShadowVisible: false,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: Colors.LIGHT,
+          },
+          headerTitleStyle: {
+            fontSize: 26,
+            fontFamily: Typography.FONT_FAMILY_POPPIS,
+            color: Colors.PRIMARY,
+            fontWeight: "700",
+          },
+          tabBarIcon: () => (
+            <Calendar  width={25} height={25}/>
+        ),
+          headerLeft: () => (
+            <TouchableOpacity
+              style={{
+                paddingLeft: 20,
+              }}
+            >
+              <Menu width={30} height={30} />
+            </TouchableOpacity>
+          ),
         }}
       />
       <Tab.Screen
@@ -138,6 +173,16 @@ const TasksNavigationScreens = () => {
           ),
         }}
       />
+      <Stack.Screen
+        name='calendar'
+        component={CalendarScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: 'red',
+          }
+        }}
+      />
+
       <Stack.Screen
         name='create'
         component={CreateListScreen}

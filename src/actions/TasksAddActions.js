@@ -70,12 +70,23 @@ export const fetchTodo = () => {
      }
 }
 
-export const deleteTask = (todo) => {
+export const deleteTask = (todo,title) => {
     return async (dispatch) => {
+        try {
         const response = await fetch('https://tasks-app-103b0-default-rtdb.firebaseio.com/todo.json',{
             method: 'DELETE',
         });
-        console.log(response);
-        dispatch({type: GET_DELETE_TODO_SUCCESS,taskId: todo})
+          setTimeout(() => {
+              console.log(response);
+          },1000)
+        dispatch({type: GET_DELETE_TODO_SUCCESS,taskId: todo});
+
+        if(!response.ok) {
+            throw new Error('Not deleted Task from server please contact developer!');
+        }
+
+        }catch (err) {
+            alert(err);
+        }
     }
 }
