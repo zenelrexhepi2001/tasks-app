@@ -1,6 +1,6 @@
-import {Text} from 'react-native';
+import { Text } from "react-native";
 import { TouchableOpacity } from "react-native";
-//rn navigation 
+//rn navigation
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
@@ -11,8 +11,7 @@ import {
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 //Colors typography
-import { Colors,Typography } from "../styles";
-
+import { Colors, Typography } from "../styles";
 
 //Logo
 import HomeLogo from "../assets/svg/home.svg";
@@ -23,11 +22,12 @@ import Menu from "../assets/svg/menu.svg";
 
 //Components and screens
 import HomeScreen from "../screens/home/HomeScreen";
-import CreateListScreen from '../screens/create-list/CreateListScreen';
-import CreateTaskScreen from '../screens/create-task/CreateTaskScreen';
-import { AddCircle } from '../components/atoms';
+import CreateListScreen from "../screens/create-list/CreateListScreen";
+import CreateTaskScreen from "../screens/create-task/CreateTaskScreen";
+import { AddCircle } from "../components/atoms";
 
-import CalendarScreen from '../screens/calendar/CalendarScreen';
+import CalendarScreen from "../screens/calendar/CalendarScreen";
+import HabitsScreen from "../screens/habits/HabitsScreen";
 
 //Creating Stacks and tabs navigation
 const Stack = createNativeStackNavigator();
@@ -37,29 +37,27 @@ const TabNavigationScreen = (props) => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarStyle: { position: "absolute",
-        bottom: 25,
-        left: 20,
-        right: 20,
-        elevation: 0,
-        backgroundColor: '#fff',
-        height: 40,
-        shadowColor: '#fff',
-        borderTopWidth: 0,
-        borderTopColor: '#fff',
-
-      },
-    }}
+        tabBarStyle: {
+          position: "absolute",
+          bottom: 25,
+          left: 20,
+          right: 20,
+          elevation: 0,
+          backgroundColor: "#fff",
+          height: 40,
+          shadowColor: "#fff",
+          borderTopWidth: 0,
+          borderTopColor: "#fff",
+        },
+      }}
     >
       <Tab.Screen
         name="Home"
         component={TasksNavigationScreens}
         options={{
-            tabBarLabel: '',
-            headerShown: false,
-            tabBarIcon: () => (
-                <HomeLogo  width={25} height={25}/>
-            )
+          tabBarLabel: "",
+          headerShown: false,
+          tabBarIcon: () => <HomeLogo width={25} height={25} />,
         }}
       />
       <Tab.Screen
@@ -79,7 +77,7 @@ const TabNavigationScreen = (props) => {
         }}
         */
         options={{
-          tabBarLabel: '',
+          tabBarLabel: "",
           headerShown: true,
           headerShadowVisible: false,
           headerTitleAlign: "center",
@@ -92,9 +90,7 @@ const TabNavigationScreen = (props) => {
             color: Colors.PRIMARY,
             fontWeight: "700",
           },
-          tabBarIcon: () => (
-            <Calendar  width={25} height={25}/>
-        ),
+          tabBarIcon: () => <Calendar width={25} height={25} />,
           headerLeft: () => (
             <TouchableOpacity
               style={{
@@ -108,35 +104,50 @@ const TabNavigationScreen = (props) => {
       />
       <Tab.Screen
         name="Habits"
-        component={''}
+        component={HabitsScreen}
         options={{
-            tabBarLabel: '',
-            headerShown: false,
-            tabBarIcon: () => (
-                <Habits  width={25} height={25}/>
-            )
-        }}
-      />
-        <Tab.Screen
-        name="Settings"
-        component={CreateTaskScreen}
-        options={{
-            tabBarLabel: '',
-            headerShown: false,
-            tabBarIcon: () => (
-                <Settings  width={25} height={25}/>
-            )
+          tabBarLabel: "",
+          headerShown: true,
+          headerShadowVisible: false,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: Colors.LIGHT,
+          },
+          headerTitleStyle: {
+            fontSize: 26,
+            fontFamily: Typography.FONT_FAMILY_POPPIS,
+            color: Colors.PRIMARY,
+            fontWeight: "700",
+          },
+
+          headerLeft: () => (
+            <TouchableOpacity
+              style={{
+                paddingLeft: 20,
+              }}
+            >
+              <Menu width={30} height={30} />
+            </TouchableOpacity>
+          ),
+          tabBarIcon: () => <Habits width={25} height={25} />,
         }}
       />
       <Tab.Screen
-         name='create-task'
-         component={CreateTaskScreen}
-         options={{
-             tabBarLabel: '',
-             tabBarIcon: () => (
-               <AddCircle/>
-             )
-         }}
+        name="Settings"
+        component={CreateTaskScreen}
+        options={{
+          tabBarLabel: "",
+          headerShown: false,
+          tabBarIcon: () => <Settings width={25} height={25} />,
+        }}
+      />
+      <Tab.Screen
+        name="create-task"
+        component={CreateTaskScreen}
+        options={{
+          tabBarLabel: "",
+          tabBarIcon: () => <AddCircle />,
+        }}
       />
     </Tab.Navigator>
   );
@@ -174,21 +185,21 @@ const TasksNavigationScreens = () => {
         }}
       />
       <Stack.Screen
-        name='calendar'
+        name="calendar"
         component={CalendarScreen}
         options={{
           headerStyle: {
-            backgroundColor: 'red',
-          }
+            backgroundColor: "red",
+          },
         }}
       />
 
+      <Stack.Screen name="create" component={CreateListScreen} />
+
+      <Stack.Screen name="Habits" component={HabitsScreen} />
+
       <Stack.Screen
-        name='create'
-        component={CreateListScreen}
-      />
-      <Stack.Screen
-        name='create-task'
+        name="create-task"
         component={CreateTaskScreen}
         options={{
           headerShown: true,

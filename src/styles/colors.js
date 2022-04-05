@@ -10,3 +10,4 @@ export const BLACK = '#000';
 //ACTIONS
 export const SUCCESS = '#536DFE';
 export const ALERT = '#FF6584';
+export const GREEN_SUCCESS = '#00BFA6';
