@@ -1,18 +1,26 @@
-import { NavigationContainer } from '@react-navigation/native';
-import React from 'react'; 
-import {View,Text,StyleSheet} from 'react-native';
-import TasksNavigationScreens from './navigation/TasksNavigationScreens';
+import React from "react";
+import { Provider } from "react-redux";
+import { store } from "./store";
+import NavigationScreensConfig from "./navigations";
+import { NavigationContainer } from "@react-navigation/native";
+import {useFonts} from 'expo-font';
 
 const App = () => {
-    return (
-        <NavigationContainer>
-        <TasksNavigationScreens/>
-        </NavigationContainer>
-    )
-}
+  const [loaded] = useFonts({
+    Poppins: require('./assets/fonts/Poppins.ttf'),
+  });
 
-const styles = StyleSheet.create({
+  if(!loaded) {
+       return null;
+     }
 
-})
+  return (
+    <Provider store={store}>
+      <NavigationContainer>
+        <NavigationScreensConfig />
+      </NavigationContainer>
+    </Provider>
+  );
+};
 
 export default App;
