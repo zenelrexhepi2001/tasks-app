@@ -19,6 +19,8 @@ import Calendar from "../assets/svg/calendar.svg";
 import Habits from "../assets/svg/habits.svg";
 import Settings from "../assets/svg/settings.svg";
 import Menu from "../assets/svg/menu.svg";
+import { AntDesign } from '@expo/vector-icons'; 
+
 
 //Components and screens
 import HomeScreen from "../screens/home/HomeScreen";
@@ -33,7 +35,7 @@ import HabitsScreen from "../screens/habits/HabitsScreen";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const TabNavigationScreen = (props) => {
+const TabNavigationScreen = ({navigation}) => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -137,16 +139,28 @@ const TabNavigationScreen = (props) => {
         component={CreateTaskScreen}
         options={{
           tabBarLabel: "",
-          headerShown: false,
+          headerShown: true,
           tabBarIcon: () => <Settings width={25} height={25} />,
         }}
       />
       <Tab.Screen
-        name="create-task"
+        name="Add New Task"
         component={CreateTaskScreen}
         options={{
           tabBarLabel: "",
+          headerShown: true,
           tabBarIcon: () => <AddCircle />,
+          headerTitleAlign: 'center',
+          headerLeft: ({navigation}) => (
+            <TouchableOpacity
+            onPress={() => navigation.navigate('Tasks')}
+              style={{
+                marginLeft: 15,
+              }}
+            >
+              <AntDesign name="arrowleft" size={24} color="black" />
+            </TouchableOpacity>
+          )
         }}
       />
     </Tab.Navigator>
@@ -199,10 +213,19 @@ const TasksNavigationScreens = () => {
       <Stack.Screen name="Habits" component={HabitsScreen} />
 
       <Stack.Screen
-        name="create-task"
+        name="create new Task"
         component={CreateTaskScreen}
         options={{
           headerShown: true,
+          headerShadowVisible: false,
+          headerTitleAlign: 'center',
+          headerTintColor: Colors.PRIMARY,
+          headerTitleStyle: {
+            fontSize: 26,
+            fontFamily: Typography.FONT_FAMILY_POPPIS,
+            color: Colors.PRIMARY,
+            fontWeight: "700",
+          }
         }}
       />
     </Stack.Navigator>

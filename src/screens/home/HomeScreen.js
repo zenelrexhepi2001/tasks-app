@@ -20,11 +20,14 @@ import * as TodoActions from "../../actions/TasksAddActions";
 import DownIcon from "../../assets/svg/down.svg";
 import { DoneTasks } from "../../components/organisms";
 
+import  AsyncStorage  from "@react-native-async-storage/async-storage";
+
 const HomeScreen = (props) => {
 
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [toggle, setToggle] = useState(false);
+  const [dataAsync,setDataAsync] = useState(displayTasks);
   const [error, setError] = useState();
 
   const displayList = useSelector((state) => state.TaskData.data);
@@ -32,6 +35,30 @@ const HomeScreen = (props) => {
   const displayTasks = useSelector((state) => state.AddTasks.dataTasks);
 
   const dispatch = useDispatch();
+
+  const saveData = async () => {
+    try {
+      await AsyncStorage.setItem('private_key',JSON.stringify(displayTasks));
+    }catch (err) {
+      alert(err);
+    }
+     await AsyncStorage.setItem('private_key',JSON.stringify(displayTasks))
+  }
+
+  const storeData = async () => {
+    try {
+      let dataStore = await AsyncStorage.getItem('prvate_key');
+        if(dataStore !== null) {
+            setDataAsync(dataStore);
+        }
+    }catch {
+      alert(err);
+    }
+  }
+
+  useEffect(() => {
+    saveData();
+  },[storeData]);
 
   const loadTasks = useCallback(async () => {
     setRefresh(true);
@@ -59,6 +86,8 @@ const HomeScreen = (props) => {
 
     loadTasks().then(() => {
       setLoading(false);
+    }).catch((err) => {
+      console.log(err);
     });
   }, [dispatch, loadTasks]);
 
@@ -100,6 +129,28 @@ const HomeScreen = (props) => {
     );
   }
 
+//for alert no tasks for today ...
+  if(!loading && displayTasks.length === 0) {
+     return (
+       <View
+         style={{
+           flex: 1,
+           backgroundColor: Colors.LIGHT,
+           alignItems: 'center',
+           justifyContent: 'center',
+         }}
+       >
+         <Text
+         style={{
+           color: Colors.PRIMARY,
+           fontSize: 16,
+           fontFamily: Typography.FONT_FAMILY_POPPIS,
+         }}
+         >No tasks for today!</Text>
+       </View>
+     )
+  }
+
   return (
     <SafeAreaView style={styles.hero}>
       <View style={styles.listContainer}>
@@ -135,7 +186,7 @@ const HomeScreen = (props) => {
               <TaskList
                 title={itemData.item.title}
                 time={itemData.item.time}
-                onClick={() => props.navigation.navigate("create-task")}
+                onClick={() => props.navigation.navigate("Add New Task")}
                 onRemove={() =>
                   dispatch(TodoActions.deleteTask(itemData.item.id))
                 }

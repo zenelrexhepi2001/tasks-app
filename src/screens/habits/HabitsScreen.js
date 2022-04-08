@@ -27,12 +27,12 @@ const HabitsScreen = (props) => {
     setError(null);
     try {
       setTimeout(() => {
-        setLoading(false);
+         setLoading(false);
       }, 1000);
     } catch (err) {
       console.log(err);
     }
-  }, [setLoading]);
+  }, [setLoading,setError]);
 
   if (loading) {
     return (
