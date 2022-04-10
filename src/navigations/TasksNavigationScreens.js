@@ -13,6 +13,12 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 //Colors typography
 import { Colors, Typography } from "../styles";
 
+import {
+  Provider as PaperProvider,
+  DefaultTheme as PaperDefaultTheme,
+  DarkTheme as PaperDarkTheme,
+} from 'react-native-paper';
+
 //Logo
 import HomeLogo from "../assets/svg/home.svg";
 import Calendar from "../assets/svg/calendar.svg";
@@ -26,6 +32,7 @@ import { AntDesign } from '@expo/vector-icons';
 import HomeScreen from "../screens/home/HomeScreen";
 import CreateListScreen from "../screens/create-list/CreateListScreen";
 import CreateTaskScreen from "../screens/create-task/CreateTaskScreen";
+import SettingsScreen from "../screens/settings/SettingsScreen";
 import { AddCircle } from "../components/atoms";
 
 import CalendarScreen from "../screens/calendar/CalendarScreen";
@@ -136,10 +143,18 @@ const TabNavigationScreen = ({navigation}) => {
       />
       <Tab.Screen
         name="Settings"
-        component={CreateTaskScreen}
+        component={SettingsScreen}
         options={{
           tabBarLabel: "",
+          headerTitleAlign: 'center',
           headerShown: true,
+          headerShadowVisible: false,
+          headerTitleStyle: {
+            fontSize: 26,
+            fontFamily: Typography.FONT_FAMILY_POPPIS,
+            color: Colors.PRIMARY,
+            fontWeight: "700",
+          },
           tabBarIcon: () => <Settings width={25} height={25} />,
         }}
       />
