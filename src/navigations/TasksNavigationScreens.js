@@ -1,23 +1,12 @@
-import { Text } from "react-native";
 import { TouchableOpacity } from "react-native";
 //rn navigation
-import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import {
-  createMaterialBottomTabNavigator,
-  MaterialBottomTabNavigationEventMap,
-} from "@react-navigation/material-bottom-tabs";
 
+//create bottom tab navigator
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 //Colors typography
 import { Colors, Typography } from "../styles";
-
-import {
-  Provider as PaperProvider,
-  DefaultTheme as PaperDefaultTheme,
-  DarkTheme as PaperDarkTheme,
-} from 'react-native-paper';
 
 //Logo
 import HomeLogo from "../assets/svg/home.svg";

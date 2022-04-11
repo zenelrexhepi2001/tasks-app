@@ -8,10 +8,11 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { Colors, Typography } from "../../styles";
 
 import * as TasksActions from "../../actions/TasksAddActions";
+import * as TaskPercentage from '../../actions/PercentageTodoActions';
 
 import {ButtonPrimary} from "../../components/UI"
 import Asyncstorage from '@react-native-async-storage/async-storage';
@@ -22,6 +23,8 @@ const CreateTaskScreen = (props) => {
   const [time, setTime] = useState("");
 
   const dispatch = useDispatch();
+
+  const taskHabits = useSelector((state) => state.TaskNumber);
 
   const TasksTextChange = (text) => {
     setValueTask(text);
@@ -60,6 +63,7 @@ const CreateTaskScreen = (props) => {
 
   const saveTask = () => {
     dispatch(TasksActions.addTodo(valueTask));
+    dispatch(TaskPercentage.IncrementTodo());
 
     setTimeout(() => {
       props.navigation.goBack();

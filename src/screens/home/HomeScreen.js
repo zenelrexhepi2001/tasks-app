@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, } from "react";
 import {
   View,
   Text,
@@ -6,10 +6,8 @@ import {
   FlatList,
   TouchableOpacity,
   SafeAreaView,
-  SectionList,
   ActivityIndicator,
 } from "react-native";
-import { Header } from "../../components/atoms";
 import { Colors, Typography } from "../../styles";
 import { useSelector } from "react-redux";
 import { List, AddTask } from "../../components/atoms";
@@ -20,16 +18,16 @@ import * as TodoActions from "../../actions/TasksAddActions";
 import DownIcon from "../../assets/svg/down.svg";
 import { DoneTasks } from "../../components/organisms";
 
-import  AsyncStorage  from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+
 
 const HomeScreen = (props) => {
-
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [toggle, setToggle] = useState(false);
-  const [dataAsync,setDataAsync] = useState(displayTasks);
+  const [dataAsync, setDataAsync] = useState(displayTasks);
   const [error, setError] = useState();
-
   const displayList = useSelector((state) => state.TaskData.data);
   //For display tasks reducer
   const displayTasks = useSelector((state) => state.AddTasks.dataTasks);
@@ -38,27 +36,29 @@ const HomeScreen = (props) => {
 
   const saveData = async () => {
     try {
-      await AsyncStorage.setItem('private_key',JSON.stringify(displayTasks));
-    }catch (err) {
+      await AsyncStorage.setItem("private_key", JSON.stringify(displayTasks));
+    } catch (err) {
       alert(err);
+      console.log(err);
     }
-     await AsyncStorage.setItem('private_key',JSON.stringify(displayTasks))
-  }
+    await AsyncStorage.setItem("private_key", JSON.stringify(displayTasks));
+  };
 
   const storeData = async () => {
     try {
-      let dataStore = await AsyncStorage.getItem('prvate_key');
-        if(dataStore !== null) {
-            setDataAsync(dataStore);
-        }
-    }catch {
+      let dataStore = await AsyncStorage.getItem("prvate_key");
+      if (dataStore !== null) {
+        setDataAsync(dataStore);
+      }
+    } catch {
       alert(err);
     }
-  }
+  };
 
+  //useEffect for call functions storeData and saveData in asyncstorage
   useEffect(() => {
     saveData();
-  },[storeData]);
+  }, [storeData]);
 
   const loadTasks = useCallback(async () => {
     setRefresh(true);
@@ -66,7 +66,7 @@ const HomeScreen = (props) => {
     try {
       // for fetch -> List
       await dispatch(TasksActions.fetchList());
-      //for fetch todo 
+      //for fetch todo
       await dispatch(TodoActions.fetchTodo());
     } catch (err) {
       alert(err);
@@ -84,11 +84,13 @@ const HomeScreen = (props) => {
       //setTimeout value = 0
     }, 0);
 
-    loadTasks().then(() => {
-      setLoading(false);
-    }).catch((err) => {
-      console.log(err);
-    });
+    loadTasks()
+      .then(() => {
+        setLoading(false);
+      })
+      .catch((err) => {
+         console.log(err);
+      });
   }, [dispatch, loadTasks]);
 
   if (error) {
@@ -129,26 +131,28 @@ const HomeScreen = (props) => {
     );
   }
 
-//for alert no tasks for today ...
-  if(!loading && displayTasks.length === 0) {
-     return (
-       <View
-         style={{
-           flex: 1,
-           backgroundColor: Colors.LIGHT,
-           alignItems: 'center',
-           justifyContent: 'center',
-         }}
-       >
-         <Text
-         style={{
-           color: Colors.PRIMARY,
-           fontSize: 16,
-           fontFamily: Typography.FONT_FAMILY_POPPIS,
-         }}
-         >No tasks for today!</Text>
-       </View>
-     )
+  //for alert no tasks for today ...
+  if (!loading && displayTasks.length === 0) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: Colors.LIGHT,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Text
+          style={{
+            color: Colors.PRIMARY,
+            fontSize: 16,
+            fontFamily: Typography.FONT_FAMILY_POPPIS,
+          }}
+        >
+          No tasks for today!
+        </Text>
+      </View>
+    );
   }
 
   return (

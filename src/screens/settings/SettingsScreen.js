@@ -6,6 +6,7 @@ import {
   Switch,
   TouchableOpacity,
   Platform,
+  Alert,
 } from "react-native";
 import { Colors, Typography } from "../../styles";
 import { Ionicons } from "@expo/vector-icons";
@@ -13,28 +14,49 @@ import * as ThemeActions from "../../actions/DarkModeActions";
 import { useDispatch, useSelector } from "react-redux";
 import { AntDesign } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
+import { ModalLanguage } from "../../components/molecules";
+import { HelpModal } from "../../components/molecules";
 
 const SettingsScreen = (props) => {
   const [isEnabled, setIsEnabled] = useState(false);
+  const [showmodal, setShowModal] = useState(false);
+  const [helpModal, setHelpModal] = useState(false);
   const toggleSwitch = () => setIsEnabled((prevState) => !prevState);
   const dispatch = useDispatch();
+
+  const AlertNotification = () =>
+    Alert.alert("TodoApp", "Allow your notifications", [
+      {
+        text: "No",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "destructive",
+      },
+      { text: "Yes", onPress: () => console.log("OK Pressed") },
+    ]);
 
   return (
     <View style={styles.screen}>
       <View style={styles.container}>
         <View style={styles.flex}>
-          <TouchableOpacity style={styles.box}>
+          <TouchableOpacity
+            style={styles.box}
+            onPress={() => setShowModal(!showmodal)}
+          >
             <AntDesign name="right" size={20} color={Colors.PRIMARY} />
           </TouchableOpacity>
           <View style={styles.flexChildren}>
-            <TouchableOpacity style={styles.circle}>
+            <TouchableOpacity
+              style={styles.circle}
+              onPress={() => setShowModal(!showmodal)}
+            >
               <Fontisto name="world" size={20} color={Colors.SUCCESS} />
             </TouchableOpacity>
             <Text style={styles.settingsTitle}>Language</Text>
           </View>
+          <ModalLanguage visibleModal={showmodal} setModal={setShowModal} />
         </View>
         <View style={styles.flex}>
-          <TouchableOpacity style={styles.box}>
+          <TouchableOpacity style={styles.box} onPress={AlertNotification}>
             <AntDesign name="right" size={20} color={Colors.PRIMARY} />
           </TouchableOpacity>
           <View style={styles.flexChildren}>
@@ -72,7 +94,10 @@ const SettingsScreen = (props) => {
           </View>
         </View>
         <View style={styles.flex}>
-          <TouchableOpacity style={styles.box}>
+          <TouchableOpacity
+            style={styles.box}
+            onPress={() => setHelpModal(!helpModal)}
+          >
             <AntDesign name="right" size={20} color={Colors.PRIMARY} />
           </TouchableOpacity>
           <View style={styles.flexChildren}>
@@ -81,11 +106,13 @@ const SettingsScreen = (props) => {
                 name={
                   Platform.OS === "android" ? "md-help-buoy" : "md-help-buoy"
                 }
+                onPress={() => setHelpModal(!helpModal)}
                 size={20}
                 color={Colors.SUCCESS}
               />
             </TouchableOpacity>
             <Text style={styles.settingsTitle}>Help</Text>
+            <HelpModal visibleModal={helpModal} setModal={setHelpModal} />
           </View>
         </View>
       </View>

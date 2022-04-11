@@ -6,12 +6,14 @@ import TaskReducer from '../reducer/TasksReducer';
 import AddTaskReducer from '../reducer/TasksAddReducer';
 import HabitsReducer from '../reducer/HabitsReducer';
 import ThemeReducer from '../reducer/ThemeReducer';
+import TaskNumReducer from '../reducer/TaskNumberReducer';
 
 const rootReducer = combineReducers({
     TaskData: TaskReducer,
     AddTasks: AddTaskReducer,
     Habits: HabitsReducer,
     Theme: ThemeReducer,
+    TaskNumber: TaskNumReducer,
 });
 
 export const store = createStore(

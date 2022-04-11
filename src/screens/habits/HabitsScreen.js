@@ -14,6 +14,7 @@ import { LineChart } from "react-native-chart-kit";
 import { useSelector } from "react-redux";
 
 import DownArrow from "../../assets/svg/downColor.svg";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HabitsScreen = (props) => {
   //Hooks
@@ -21,6 +22,43 @@ const HabitsScreen = (props) => {
   const [error, setError] = useState("");
 
   const displayDataChart = useSelector((state) => state.Habits.DataHabits);
+  const counter = useSelector((state) => state.TaskNumber);
+  console.log(counter);
+
+  const saveData = async () => {
+    try {
+      await AsyncStorage.setItem('@Todo_App',JSON.stringify(counter));
+    }catch (err) {
+      console.log(err);
+    }
+    await AsyncStorage.setItem('@Todo_App',JSON.stringify(counter));
+  }
+
+  
+  const storeData = async () => {
+     try {
+      let jsonValue = await AsyncStorage.getItem('@Todo_App');
+      jsonValue != null ? JSON.parse(jsonValue) : null
+     }catch (err) {
+       console.log(err);
+     }
+  }
+
+  const removeData = async () => {
+    try {
+      await AsyncStorage.removeItem('@Todo_App');
+    }catch (err) {
+      console.log(err);
+    }finally {
+      console.log('Finally...')
+    }
+  }
+
+  useEffect(() => {
+      saveData();
+      storeData();
+      removeData();
+  },[]);
 
   useEffect(async () => {
     setLoading(true);
@@ -59,7 +97,7 @@ const HabitsScreen = (props) => {
             </TouchableOpacity>
             <View style={styles.alertContent}>
               <Text style={styles.alertTitle}>Finished today</Text>
-              <Text style={styles.alertPercentage}>40%</Text>
+              <Text style={styles.alertPercentage}>{counter}</Text>
             </View>
             <View style={styles.line}>
               <View style={styles.lineColor} />
