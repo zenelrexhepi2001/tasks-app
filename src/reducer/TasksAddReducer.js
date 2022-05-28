@@ -3,7 +3,7 @@ import TasksCategory from '../models/TasksCategory';
 import GET_TASKS_DATA from '../data/data-tasks';
 
 const INITIAL_STATE = {
-    dataTasks: GET_TASKS_DATA,
+    dataTasks: [],
     dataFilter: GET_TASKS_DATA.filter((task) => task.id === 1),
 }
 
@@ -22,13 +22,14 @@ export default (state = INITIAL_STATE, action) => {
           case GET_FETCH_TODO_FROM_SERVER_SUCCESS:
                 return {
                     ...state,
-                    dataTasks: action.todoData,
+                    dataTasks: action.payload,
                 }
 
           case GET_DELETE_TODO_SUCCESS:
               return {
                  ...state,
                   dataTasks: state.dataTasks.filter((task) => task.id !== action.taskId),
+                  dataTasks: action.paylaod,
               }
 
               default:

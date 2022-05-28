@@ -30,10 +30,11 @@ const HomeScreen = (props) => {
   const [dataAsync,setDataAsync] = useState(displayTasks);
   const [error, setError] = useState();
 
+  //useSelector for displayed data redux 
   const displayList = useSelector((state) => state.TaskData.data);
-  //For display tasks reducer
   const displayTasks = useSelector((state) => state.AddTasks.dataTasks);
 
+  //dispatch
   const dispatch = useDispatch();
 
   const saveData = async () => {
@@ -52,7 +53,7 @@ const HomeScreen = (props) => {
             setDataAsync(dataStore);
         }
     }catch {
-      alert(err);
+       console.log(err);
     }
   }
 
@@ -64,10 +65,11 @@ const HomeScreen = (props) => {
     setRefresh(true);
     setError(null);
     try {
+      
       // for fetch -> List
-      await dispatch(TasksActions.fetchList());
+      //await dispatch(TasksActions.fetchList());
       //for fetch todo 
-      await dispatch(TodoActions.fetchTodo());
+      //await dispatch(TodoActions.fetchTodo());
     } catch (err) {
       alert(err);
       console.log(err);
@@ -75,7 +77,7 @@ const HomeScreen = (props) => {
 
     setTimeout(() => {
       setRefresh(false);
-    }, 200);
+    }, 0);
   }, [dispatch, setLoading]);
 
   useEffect(() => {
@@ -114,6 +116,7 @@ const HomeScreen = (props) => {
     );
   }
 
+  /*
   if (loading) {
     return (
       <View
@@ -128,6 +131,7 @@ const HomeScreen = (props) => {
       </View>
     );
   }
+  */
 
 //for alert no tasks for today ...
   if(!loading && displayTasks.length === 0) {
@@ -158,7 +162,7 @@ const HomeScreen = (props) => {
           refreshing={refresh}
           onRefresh={loadTasks}
           data={displayList}
-          keyExtractor={(item) => item.id}
+          keyExtractor={item => item.id}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           renderItem={(post) => (

@@ -3,7 +3,7 @@ import { GET_CREATE_NEW_LIST_SUCCESS, GET_FETCH_LIST_FROM_SERVER_SUCCESS} from '
 import GET_DATA from '../data/data';
 
 const INITIAL_STATE = {
-    data: GET_DATA,
+    data: [],
     dataFilter: GET_DATA.filter((post) => post.id === 1),
 }
 
@@ -20,7 +20,7 @@ export default (state = INITIAL_STATE, action) => {
         case GET_FETCH_LIST_FROM_SERVER_SUCCESS:
             return {
                 ...state,
-                data: action.lists,
+                data: action.payload,
             }
          default:
              return state
